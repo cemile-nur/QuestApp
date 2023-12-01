@@ -1,6 +1,7 @@
 package com.project.questApp.controllers;
 
 import com.project.questApp.entities.Post;
+import com.project.questApp.entities.User;
 import com.project.questApp.requests.PostCreateRequest;
 import com.project.questApp.requests.PostUpdateRequest;
 import com.project.questApp.services.PostService;
@@ -22,6 +23,7 @@ public class PostController {
     public List<Post> getAllPosts(@RequestParam Optional<Integer> userId) {
         return postService.getAllPosts(userId);
     }
+
 
 
     @PostMapping
