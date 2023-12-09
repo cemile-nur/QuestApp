@@ -4,6 +4,7 @@ import com.project.questApp.entities.Post;
 import com.project.questApp.entities.User;
 import com.project.questApp.requests.PostCreateRequest;
 import com.project.questApp.requests.PostUpdateRequest;
+import com.project.questApp.responses.PostResponse;
 import com.project.questApp.services.PostService;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public class PostController {
     }
 
     @GetMapping
-    public List<Post> getAllPosts(@RequestParam Optional<Integer> userId) {
+    public List<PostResponse> getAllPosts(@RequestParam Optional<Integer> userId) {
         return postService.getAllPosts(userId);
     }
 
