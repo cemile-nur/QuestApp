@@ -20,10 +20,10 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping
+   /* @GetMapping
     public List<PostResponse> getAllPosts(@RequestParam Optional<Integer> userId) {
         return postService.getAllPosts(userId);
-    }
+    }*/
 
 
 
