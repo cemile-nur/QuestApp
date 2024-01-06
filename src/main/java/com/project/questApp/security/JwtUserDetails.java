@@ -17,25 +17,20 @@ public class JwtUserDetails implements UserDetails {
     public int id;
     private String username;
     private String password;
-    private Collection<? extends GrantedAuthority> getAuthorities;
+    private Collection<? extends GrantedAuthority> authorities;
 
 
-    public JwtUserDetails(int id, String username, String password, Collection<? extends GrantedAuthority> getAuthorities) {
+    private JwtUserDetails(int id, String username, String password, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.getAuthorities = getAuthorities;
+        this.authorities = authorities;
     }
 
     public static JwtUserDetails create(User user) {
         List<GrantedAuthority> authoritiesList = new ArrayList<>();
         authoritiesList.add(new SimpleGrantedAuthority("user"));
         return new JwtUserDetails(user.getId(), user.getName(), user.getPassword(), authoritiesList);
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
     }
 
     @Override

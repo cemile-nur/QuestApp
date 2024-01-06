@@ -21,19 +21,19 @@ public class JwtTokenProvider {
     public String generateJwtToken(Authentication auth) {
         JwtUserDetails userDetails = (JwtUserDetails) auth.getPrincipal();
         Date expireDate = new Date(new Date().getTime() + EXPIRES_IN);
-        return Jwts.builder().setSubject(Long.toString(userDetails.getId()))
+        return Jwts.builder().setSubject(Integer.toString(userDetails.getId()))
                 .setIssuedAt(new Date()).setExpiration(expireDate)
                 .signWith(SignatureAlgorithm.HS512, APP_SECRET).compact();
     }
 
-    public String generateJwtTokenByUserId(int userId) {
+   /* public String generateJwtTokenByUserId(int userId) {
         Date expireDate = new Date(new Date().getTime() + EXPIRES_IN);
         return Jwts.builder().setSubject(Integer.toString(userId))
                 .setIssuedAt(new Date()).setExpiration(expireDate)
                 .signWith(SignatureAlgorithm.HS512, APP_SECRET).compact();
-    }
-
-    Integer getUserIdFromJwt(String token) {
+    }*/
+//küçük int ??
+    int getUserIdFromJwt(String token) {
         Claims claims = Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(token).getBody();
         return Integer.parseInt(claims.getSubject());
     }
@@ -42,15 +42,8 @@ public class JwtTokenProvider {
         try {
             Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(token);
             return !isTokenExpired(token);
-        } catch (SignatureException e) {
-            return false;
-        } catch (MalformedJwtException e) {
-            return false;
-        } catch (ExpiredJwtException e) {
-            return false;
-        } catch (UnsupportedJwtException e) {
-            return false;
-        } catch (IllegalArgumentException e) {
+        } catch (SignatureException | MalformedJwtException | ExpiredJwtException | UnsupportedJwtException |
+                 IllegalArgumentException e) {
             return false;
         }
     }
